@@ -1,0 +1,69 @@
+{% extends 'base.html' %}
+{% block title %}{{block.super}} | {{post_detail.title}}{% endblock %}
+<!--<style>
+{% block style %}
+h1{
+    color:#123456;
+}
+{% endblock style %}
+</style> -->
+{% block content %}
+    <div class='col-md-6 offset-3'>
+        {% if post_detail.image %}
+        <img src='{{post_detail.image.url}}' class='pt-4 img-fluid'/>
+        {% endif %}
+        <h1 class="text-center">{{post_detail.title}}</h1>
+        <small class='pl-2'>
+            <span style="" id="edit">
+                <a id="edits" style="text-decotation:none;color:red;" href="edit">Edit</a>
+            </span>
+            {% if post_detail.draft %}
+                <span class='pr-4' style='color:red;'>Draft</span>
+            {% endif %}
+
+            <span  style="margin-left:70%;color:#75b6f0;">{{post_detail.publish}}</span>
+        </small>
+        <p class="p-1"></p>
+
+        {% if post_detail.user.username %}
+        <p>Curio : {{post_detail.user.username}}</p>
+        {% endif %}
+
+
+        <div>
+        {{post_detail.content}}
+        </div>
+        <a class="pt-2 offset-9 pb-2 btn btn-danger" href="delete">Delete Question</a>
+        <br>
+        <hr style="border-top:1px solid #81c784;">
+        {% if request.user.is_authenticated %}
+        <h3>Comments</h3>
+        <form method='POST' class="form-group" action=''>
+            <div class="row">
+            {% csrf_token %}
+                <div class="col-md-6 form-control">
+                    {% for f in comment_form %}
+                        {{ f }}
+                    {% endfor %}
+                </div>
+            <!--{{comment_form}} -->
+                <div class="col-md-6">
+                    <input type='submit' value='Add Comment' class='btn btn-primary'>
+                </div>
+            </div>
+        </form>
+        {% endif %}
+        <p class='p-2'></p>
+        {% for comment in comments %}
+        <div class='card'>
+            <div class='card-body'>
+                <h6 class='card-title text-dark'>{{post_detail.user.username}}<small style='color: #419ba4;margin-left: 16rem;'>{{comment.timestamp|timesince}}</small></h6>
+                <p class='card-text' style="color:black;">{{comment.content}}</p>
+            </div>
+        </div>
+        <div class='p-1'></div>
+        {% endfor %}
+       <!-- <div class="fb-comments" data-href="{{comp_url}}" data-width="" data-numposts="5"></div>
+    -->
+    </div>
+{% endblock%}

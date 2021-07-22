@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% block head_extra %}
+    <div class='col-md-6 offset-3'>
+        {{form.media}}
+    </div>
+{% endblock head_extra %}
+    {% block content %}
+    <div class='col-md-6 offset-3'>
+        <h1 class='text-center pt-1 pb-3'>Ask your question</h1>
+        <form method='POST' action ='' enctype='multipart/form-data'>
+        {% csrf_token %}
+            {% for f in form%}
+            <div class="row p-1">
+                <div class="offset-3 col-md-3">
+                    {{f.label}}
+                </div>
+                <div class="col-md-6">
+                    {{f}}
+                </div>
+            </div>
+            {% endfor %}
+            <div class="offset-6 pt-3">
+            <input type='submit' class='btn btn-primary' style="width:12rem;" value='Ask Now' />
+            </div>
+        </form>
+    </div>
+    {% endblock content %}

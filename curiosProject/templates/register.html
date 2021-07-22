@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% block title %}Curios | {{title}}{% endblock %}
+{% block content %}
+<div class="row">
+    <div class="mt-1 pt-2 col-md-8 offset-2 text-white" style="background-color:#597b9c;border-radius:1rem;">
+        <h4 class="text-center">{{title}}</h4>
+    </div>
+</div>
+<div class="col-md-10 offset-1">
+    <form method="POST" class="pt-4">
+        <div class="form-group col-md-10 offset-1 pt-2">
+            {% csrf_token %}
+            {% for f in form %}
+                <div class="row">
+                    <div class="col-md-2"></div>
+                    <div class="text-left col-md-3">
+                        <h6>{{f.label}}</h6>
+                    </div>
+                    <div class="col-md-5">
+                        <p class="justify-content-start" >{{f}}</p>
+                    </div>
+                    <div class="col-md-2"></div>
+                </div>
+            {% endfor %}
+        </div>
+        <div class="col-md-4 offset-4">
+            <input type="submit" class="btn btn-primary btn-lg btn-block" value="Register" name="Register">
+        </div>
+    </form>
+</div>
+{% endblock %}

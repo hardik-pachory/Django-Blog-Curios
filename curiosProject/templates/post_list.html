@@ -1,0 +1,64 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+    <div class='col-md-6 offset-3'>
+
+        <div class="pt-4"></div>
+    <form method='GET' class="form-group" action=''>
+        <div class="row">
+            <div class="col-md-6 offset-2">
+                <input type='text' name='q' class="form-control" placeholder='Search Question' value='{{request.GET.q}}'/>
+            </div>
+            <div class="col-md-2">
+                <input type='submit' class="btn btn-danger" value ='Search' />
+            </div>
+        </div>
+    </form>
+    {% for obj in obj_list %}
+    <div class='row pt-3'>
+        <div class='col-md-12'>
+            <div class="card">
+                {% if obj.image %}
+                    <div style='background: rgb(67,64,69);background: linear-gradient(90deg, rgba(67,64,69,1) 0%, rgba(233,244,231,1) 50%, rgba(67,64,69,1) 100%);'>
+                    <img src='{{obj.image.url}}' class='card-img-top img-responsive offset-4' style="width:15rem;">
+                    </div>
+                {% endif %}
+                <div class="card-body">
+                    {% if obj.darft %}
+                        <h3>Staff Only : DRAFT</h3>
+                    {% endif %}
+                    {% if obj.publish > today %}
+                        <h3>Staff Only : Future Post</h3>
+                    {% endif %}
+                    <h5 class="card-title"><a href='{% url "posts:detail" id=obj.id %}'>{{obj.title}}</a>
+                    <small>{{obj.publish}}</small>
+                    </h5>
+                    <p class="card-text">
+                        {% if obj.user.username %}
+                        <p class="text-dark">
+                            Author : {{obj.user.username}}
+                        </p>
+                        {% endif %}
+                        <span class='content-markdown text-dark'>
+                        {{obj.content|truncatechars:60}}
+                        </span>
+                    </p>
+                    <a href="{% url 'posts:detail' id=obj.id %}" class="btn btn-primary">View</a>
+                </div>
+            </div>
+        </div>
+    <hr/>
+    </div>
+    {% endfor %}
+
+    </div>
+
+{% endblock  %}
+
+<!--<a href='{% url "posts:detail" id=obj.id %}'>{{obj.title}}</a><br>
+        {{obj.content|linebreaks|truncatechars:30}}<br>
+        {{obj.timestamp}}<br>
+        {{obj.updated}}<br>
+        {{obj.id}}<br>
+        <br>-->

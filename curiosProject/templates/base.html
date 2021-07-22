@@ -1,0 +1,85 @@
+<!doctype html>
+{% load static %}
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <link rel="icon" type="image/gif/png" href="{% static 'images/curios.png' %}">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <title>{% block title %}Curios{% endblock %}</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/base_style.css' %}">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.3/css/all.css" integrity="sha384-SZXxX4whJ79/gErwcOYf+zWLeJdY/qpuqC4cAa9rOGUstPomtqpuNWT9wdPEn2fk" crossorigin="anonymous">
+  </head>
+  <body>
+    <!-- Just an image -->
+    <section id="menu">
+    <div class="nav">
+      <a class="navbar-brand" href="{% url 'startpage' %}" style="margin-left:2rem;">
+        <img src="{% static 'images/curios.png' %}" width="100" height="60" alt="">
+      </a>
+        <a class="nav-link p-3" href="/">Home <span class="sr-only">(current)</span></a>
+        <a class="nav-link p-3" href="{% url 'about' %}">About Us</a>
+        {% if request.user.is_authenticated %}
+        <a class="nav-link p-3" href="{% url 'posts:list' %}">Questions</a>
+        {% endif %}
+        {% if not request.user.is_authenticated %}
+        <a class="nav-link p-3" href="{% url 'login' %}" style="margin-left:auto;">Login</a>
+        <a class="nav-link p-3" href="{% url 'register' %}">Register</a>
+        {% else %}
+        <a class="nav-link p-3" href="{% url 'posts:create' %}" style="margin-left:auto;">Ask Question</a>
+        <a class="nav-link p-3" href="{% url 'logout' %}" style="">Logout</a>
+        {% endif %}
+    </div>
+    </section>
+
+    {% block content %}
+    <section>
+      <div class="row">
+        <div class="col-md-8 offset-2">
+      <blockquote class="blockquote p-3 text-center" style="background-color:beige;border-radius:1%;margin-top:3rem;">
+        <p class="mb-0 text-dark">Knowledge of what is possible is the beginning of happiness.</p>
+        <footer class="blockquote-footer"><cite title="Source Title">George Santayana</cite></footer>
+      </blockquote>
+        </div>
+        </div>
+      <div class="p-5"></div>
+      <div class="container_fluid">
+        <div class="row">
+          <div class="col-md-7">
+            <h1 class="text-center">A place to calm your curiosity</h1>
+            <p style='padding-left: 4%;padding-top:3%;'>This Web Application allows user to ask questions and give
+            answers to problems asked by other users. The main motto of this application
+            is to spread togetherness and encourage helpful behaviour. Where every person is busy
+            in building there own career and fulfilling their future goals, it is quite possible
+            to fall in a problem that is hard to solve at single level. Our platform is like a remedy
+            for those to provide them with a helping hand to drag them out of their problem. Users
+            will work to solve others' doubts and clear theirs as well. Together we rise!</p>
+          </div>
+          <div class="col-md-5">
+            <img style="box-shadow: 1px 1px 30px #99eaea;" class="rounded mx-auto d-block" src="{% static 'images/brain_image.jpg' %}" width="80%">
+          </div>
+        </div>
+        <div class="p-5"></div>
+        <div class="row">
+          <div class="col-md-5">
+            <img style="box-shadow: 1px 1px 30px green;" class="rounded mx-auto d-block" src="{% static 'images/ques.jpg' %}" width="80%">
+          </div>
+          <div class="col-md-7">
+            <h1 class="text-center">What can you do?</h1>
+            <p style='padding-left: 4%;padding-top:3%;'>Your knowledge and wisdom can help a beginner
+            with his/her journey wonderful and fun. When answering to a particular problem you can also have a look
+            at other person's approach and their complexity, this will make your abilities of problem solving more optimised
+            and a skill to skim up and understand other person's approach. When you help someone with knowledge you
+            also help yourself with that knowledge. Your command over that topic increases and concepts get more clear.</p>
+          </div>
+        </div>
+        <div class="p-5"></div>
+      </div>
+    </section>
+    {% endblock %}
+
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+  </body>
+</html>
